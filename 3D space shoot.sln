@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3D space shoot", "3D space shoot.csproj", "{D81CDA04-CB68-46FD-A6B7-68ADF335987F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D81CDA04-CB68-46FD-A6B7-68ADF335987F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D81CDA04-CB68-46FD-A6B7-68ADF335987F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D81CDA04-CB68-46FD-A6B7-68ADF335987F}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{D81CDA04-CB68-46FD-A6B7-68ADF335987F}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{D81CDA04-CB68-46FD-A6B7-68ADF335987F}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{D81CDA04-CB68-46FD-A6B7-68ADF335987F}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
