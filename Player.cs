@@ -15,6 +15,8 @@ public class Player : KinematicBody
     private Timer _gunCooldownTimer = null!;
     private Timer _speedCooldownTimer = null!;
     private GlobalSignals _globalSignals = null!;
+    private Camera _firstPersonCamera = null!;
+    private Camera _thirdPersonCamera = null!;
 
     public override void _Ready()
     {
@@ -26,6 +28,9 @@ public class Player : KinematicBody
         _gunCooldownTimer = GetNode<Timer>("GunCooldownTimer");
         _speedCooldownTimer = GetNode<Timer>("SpeedCooldownTimer");
         _globalSignals = GetNode<GlobalSignals>("/root/GlobalSignals");
+        _firstPersonCamera = GetNode<Camera>("FirstPersonCamera");
+        _thirdPersonCamera = GetNode<Camera>("ThirdPersonCamera");
+        Visible = _thirdPersonCamera.Current;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -54,7 +59,13 @@ public class Player : KinematicBody
 
     public override void _UnhandledInput(InputEvent @event)
     {
-        // ReSharper disable once InvertIf
+        if (@event.IsActionPressed("switch_camera"))
+        {
+            _firstPersonCamera.Current = !_firstPersonCamera.Current;
+            _thirdPersonCamera.Current = !_firstPersonCamera.Current;
+            Visible = _thirdPersonCamera.Current;
+        }
+
         if (@event.IsActionPressed("ui_accept"))
         {
             _gunCooldownTimer.Start();

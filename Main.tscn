@@ -13,10 +13,13 @@
 [node name="Main" type="Spatial"]
 
 [node name="player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16.3745 )
 
-[node name="Camera" type="Camera" parent="player"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.54807 )
+[node name="FirstPersonCamera" type="Camera" parent="player"]
+current = true
+far = 8192.0
+
+[node name="ThirdPersonCamera" type="Camera" parent="player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 15 )
 far = 8192.0
 
 [node name="EnemySpawner" parent="." instance=ExtResource( 2 )]
