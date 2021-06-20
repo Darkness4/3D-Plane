@@ -13,9 +13,9 @@ public class RandomStaticBody : StaticBody
             .Rotated(Transform.basis.z, (float) ((_randomizer.NextDouble() * 2 - 1) * Math.PI));
         var origin = new Vector3
         {
-            x = (float) (_randomizer.NextDouble() * 2 - 1) * 100,
-            y = (float) (_randomizer.NextDouble() * 2 - 1) * 100,
-            z = (float) (_randomizer.NextDouble() * 2 - 1) * 100
+            x = (float) (_randomizer.NextDouble() * 2 - 1) * 200,
+            y = (float) (_randomizer.NextDouble() * 2 - 1) * 200,
+            z = (float) (_randomizer.NextDouble() * 2 - 1) * 200
         };
         Transform = new Transform(basis, origin);
     }

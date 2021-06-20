@@ -10,6 +10,7 @@ public class Player : KinematicBody
     private Vector3 _velocity;
     private float _speed = -100;
     private bool _isIncrement = true;
+    private int _ammo = 960;
 
     private Spatial[] _guns = null!;
     private Timer _gunCooldownTimer = null!;
@@ -101,10 +102,15 @@ public class Player : KinematicBody
 
     private void _on_GunCooldownTimer_timeout()
     {
-        foreach (var gun in _guns)
+        if (_ammo > 0)
         {
-            _globalSignals.EmitSignal(nameof(GlobalSignals.BulletFired), gun.GlobalTransform);
+            _ammo -= _guns.Length;
+            foreach (var gun in _guns)
+            {
+                _globalSignals.EmitSignal(nameof(GlobalSignals.BulletFired), gun.GlobalTransform);
+            }
         }
+        GD.Print(_ammo);
     }
 
     private void _on_SpeedCooldownTimer_timeout()
