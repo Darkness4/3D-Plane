@@ -11,6 +11,8 @@ public class Player : KinematicBody
     private float _speed = -100;
     private bool _isIncrement = true;
     private int _ammo = 960;
+    private Vector3 _thirdPersonCameraOriginalOrigin;
+    private Basis _thirdPersonCameraOriginalBasis;
 
     private Spatial[] _guns = null!;
     private Timer _gunCooldownTimer = null!;
@@ -18,6 +20,7 @@ public class Player : KinematicBody
     private GlobalSignals _globalSignals = null!;
     private Camera _firstPersonCamera = null!;
     private Camera _thirdPersonCamera = null!;
+    private MeshInstance _playerMesh = null!;
 
     public override void _Ready()
     {
@@ -31,7 +34,10 @@ public class Player : KinematicBody
         _globalSignals = GetNode<GlobalSignals>("/root/GlobalSignals");
         _firstPersonCamera = GetNode<Camera>("FirstPersonCamera");
         _thirdPersonCamera = GetNode<Camera>("ThirdPersonCamera");
-        Visible = _thirdPersonCamera.Current;
+        _playerMesh = GetNode<MeshInstance>("PlayerMesh");
+        _playerMesh.Visible = _thirdPersonCamera.Current;
+        _thirdPersonCameraOriginalOrigin = _thirdPersonCamera.Transform.origin;
+        _thirdPersonCameraOriginalBasis = _thirdPersonCamera.Transform.basis;
     }
 
     public override void _PhysicsProcess(float delta)
@@ -54,8 +60,21 @@ public class Player : KinematicBody
         GlobalRotate(Transform.basis.x.Normalized(), -_velocity.x  * _pitchSpeed);
         GlobalRotate(Transform.basis.z.Normalized(), -_velocity.z  * _rollSpeed);
         GlobalRotate(Transform.basis.y.Normalized(), -_velocity.y  * _yawSpeed);
+        TransformCamera();
 
         MoveAndSlide(Transform.basis.z * _speed);
+    }
+
+    private void TransformCamera()
+    {
+        _thirdPersonCamera.Transform = new Transform(
+            _thirdPersonCameraOriginalBasis.Rotated(_thirdPersonCameraOriginalBasis.z.Normalized(), -_velocity.z * 0.5f),
+            _thirdPersonCameraOriginalOrigin + new Vector3
+            {
+                x = _velocity.y * 2,
+                y = -_velocity.x * 2,
+            }
+        );
     }
 
     public override void _UnhandledInput(InputEvent @event)
@@ -64,7 +83,7 @@ public class Player : KinematicBody
         {
             _firstPersonCamera.Current = !_firstPersonCamera.Current;
             _thirdPersonCamera.Current = !_firstPersonCamera.Current;
-            Visible = _thirdPersonCamera.Current;
+            _playerMesh.Visible = _thirdPersonCamera.Current;
         }
 
         if (@event.IsActionPressed("ui_accept"))

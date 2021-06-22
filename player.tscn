@@ -1,10 +1,20 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Blender Imports/Wing Blue.material" type="Material" id=1]
 [ext_resource path="res://Blender Imports/Booster.material" type="Material" id=2]
 [ext_resource path="res://Player.cs" type="Script" id=3]
 [ext_resource path="res://Blender Imports/Base Gray.material" type="Material" id=4]
 [ext_resource path="res://Blender Imports/Black Glass.material" type="Material" id=5]
+[ext_resource path="res://Textures/T_Circle_Border.png" type="Texture" id=6]
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 4 )
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "PlayerMesh"
@@ -63,6 +73,24 @@ radius = 1.25007
 [node name="player" type="KinematicBody"]
 script = ExtResource( 3 )
 
+[node name="CrosshairVeryShort" type="MeshInstance" parent="."]
+transform = Transform( 2, 0, 0, 0, -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, -10 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="CrosshairShort" type="MeshInstance" parent="."]
+transform = Transform( 2, 0, 0, 0, -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, -100 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="CrosshairFar" type="MeshInstance" parent="."]
+transform = Transform( 2, 0, 0, 0, -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, -200 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+
 [node name="PlayerMesh" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
 material/0 = null
@@ -84,6 +112,14 @@ wait_time = 0.01
 
 [node name="SpeedCooldownTimer" type="Timer" parent="."]
 wait_time = 0.01
+
+[node name="FirstPersonCamera" type="Camera" parent="."]
+current = true
+far = 8192.0
+
+[node name="ThirdPersonCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 15 )
+far = 8192.0
 
 [connection signal="timeout" from="GunCooldownTimer" to="." method="_on_GunCooldownTimer_timeout"]
 [connection signal="timeout" from="SpeedCooldownTimer" to="." method="_on_SpeedCooldownTimer_timeout"]
