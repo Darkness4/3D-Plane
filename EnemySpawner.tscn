@@ -3,7 +3,7 @@
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://EnemySpawner.cs" type="Script" id=2]
 
-[node name="EnemySpawner" type="Spatial"]
+[node name="EnemySpawner" type="Node3D"]
 script = ExtResource( 2 )
 _unitFactory = ExtResource( 1 )
 
@@ -11,4 +11,4 @@ _unitFactory = ExtResource( 1 )
 wait_time = 2.0
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

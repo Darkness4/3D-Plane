@@ -1,22 +1,22 @@
 using Godot;
 using System;
 
-public class RandomStaticBody : StaticBody
+public partial class RandomStaticBody : StaticBody3D
 {
-    private readonly Random _randomizer = new();
+  private readonly Random _randomizer = new();
 
-    public override void _Ready()
+  public override void _Ready()
+  {
+    var basis = Transform.Basis
+        .Rotated(Transform.Basis.X, (float)((_randomizer.NextDouble() * 2 - 1) * Math.PI))
+        .Rotated(Transform.Basis.Y, (float)((_randomizer.NextDouble() * 2 - 1) * Math.PI))
+        .Rotated(Transform.Basis.Z, (float)((_randomizer.NextDouble() * 2 - 1) * Math.PI));
+    var origin = new Vector3
     {
-        var basis = Transform.basis
-            .Rotated(Transform.basis.x, (float) ((_randomizer.NextDouble() * 2 - 1) * Math.PI))
-            .Rotated(Transform.basis.y, (float) ((_randomizer.NextDouble() * 2 - 1) * Math.PI))
-            .Rotated(Transform.basis.z, (float) ((_randomizer.NextDouble() * 2 - 1) * Math.PI));
-        var origin = new Vector3
-        {
-            x = (float) (_randomizer.NextDouble() * 2 - 1) * 200,
-            y = (float) (_randomizer.NextDouble() * 2 - 1) * 200,
-            z = (float) (_randomizer.NextDouble() * 2 - 1) * 200
-        };
-        Transform = new Transform(basis, origin);
-    }
+      X = (float)(_randomizer.NextDouble() * 2 - 1) * 200,
+      Y = (float)(_randomizer.NextDouble() * 2 - 1) * 200,
+      Z = (float)(_randomizer.NextDouble() * 2 - 1) * 200
+    };
+    Transform = new Transform3D(basis, origin);
+  }
 }

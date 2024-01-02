@@ -1,12 +1,34 @@
-[gd_resource type="Environment" load_steps=2 format=2]
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://cylym0hueifu1"]
 
-[sub_resource type="ProceduralSky" id=1]
+[ext_resource type="Shader" path="res://Sky.gdshader" id="1_1kf40"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iaw56"]
+shader = ExtResource("1_1kf40")
+shader_parameter/clouds_samples = 16
+shader_parameter/shadow_sample = 4
+shader_parameter/clouds_density = 0.5
+shader_parameter/clouds_scale = 1.0
+shader_parameter/clouds_smoothness = 0.035
+shader_parameter/clouds_light_color = null
+shader_parameter/clouds_shadow_intensity = 1.0
+shader_parameter/high_clouds_density = 0.0
+shader_parameter/top_color = Color(1, 1, 1, 1)
+shader_parameter/bottom_color = Color(1, 1, 1, 1)
+shader_parameter/sun_scatter = Color(1, 1, 1, 1)
+shader_parameter/astro_tint = null
+shader_parameter/astro_scale = 1.0
+shader_parameter/astro_intensity = 1.0
+shader_parameter/stars_intensity = 0.0
+shader_parameter/shooting_stars_intensity = 0.0
+shader_parameter/shooting_star_tint = null
+
+[sub_resource type="Sky" id="Sky_ijv2q"]
+sky_material = SubResource("ShaderMaterial_iaw56")
 
 [resource]
 background_mode = 2
-background_sky = SubResource( 1 )
-auto_exposure_enabled = true
-ss_reflections_enabled = true
+sky = SubResource("Sky_ijv2q")
+ambient_light_source = 3
 ssao_enabled = true
 glow_enabled = true
 glow_bloom = 0.35
